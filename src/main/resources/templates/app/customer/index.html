@@ -73,7 +73,7 @@
     <nav th:if="${customers.totalPages > 1}">
         <ul class="pagination justify-content-end">
             <li class="page-item" th:classappend="${customers.first} ? 'disabled'">
-                <a class="page-link" th:href="@{/customers(page=${customers.number - 1})}">&laquo;</a>
+                <a class="page-link" th:href="@{/customers(page=${customers.number - 1})}">Previous</a>
             </li>
 
             <li class="page-item"
@@ -84,7 +84,7 @@
             </li>
 
             <li class="page-item" th:classappend="${customers.last} ? 'disabled'">
-                <a class="page-link" th:href="@{/customers(page=${customers.number + 1})}">&raquo;</a>
+                <a class="page-link" th:href="@{/customers(page=${customers.number + 1})}">Next</a>
             </li>
         </ul>
     </nav>

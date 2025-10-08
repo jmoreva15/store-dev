@@ -9,7 +9,7 @@ import pe.com.storedev.dto.customer.CustomerCreateDTO;
 import pe.com.storedev.dto.customer.CustomerDTO;
 import pe.com.storedev.dto.customer.CustomerUpdateDTO;
 import pe.com.storedev.entity.Customer;
-import pe.com.storedev.exceptions.NotFoundException;
+import pe.com.storedev.exception.NotFoundException;
 import pe.com.storedev.mapper.CustomerMapper;
 import pe.com.storedev.repository.CustomerRepository;
 
