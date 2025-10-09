@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/error}">
+<head>
+    <title>403 Forbidden</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="text-center mt-4">
+        <h1 class="display-1 fw-bold">403</h1>
+        <p class="lead">Access Denied</p>
+        <p>You don’t have permission to access this page.</p>
+        <a th:href="@{/dashboard}" class="text-decoration-none">
+            Return to Dashboard
+        </a>
+    </div>
+</section>
+</body>
+</html>

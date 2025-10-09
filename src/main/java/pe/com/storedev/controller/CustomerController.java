@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('VIEW_CUSTOMER')")
     public String index(@RequestParam(defaultValue = "0") int page,
                         @RequestParam(defaultValue = "10") int size,
                         Model model) {
@@ -30,6 +32,7 @@ public class CustomerController {
     }
 
     @GetMapping("/create")
+    @PreAuthorize("hasAuthority('CREATE_CUSTOMER')")
     public String create(Model model) {
         model.addAttribute("customer", new CustomerCreateDTO());
         model.addAttribute("documentTypes", DocumentType.values());
@@ -37,6 +40,7 @@ public class CustomerController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasAuthority('CREATE_CUSTOMER')")
     public String create(@Valid @ModelAttribute("customer") CustomerCreateDTO dto,
                          BindingResult result,
                          Model model) {
@@ -50,6 +54,7 @@ public class CustomerController {
     }
 
     @GetMapping("/edit/{id}")
+    @PreAuthorize("hasAuthority('EDIT_CUSTOMER')")
     public String update(@PathVariable Long id, Model model) {
         CustomerDTO customer = customerService.findById(id);
 
@@ -67,6 +72,7 @@ public class CustomerController {
     }
 
     @PostMapping("/edit/{id}")
+    @PreAuthorize("hasAuthority('EDIT_CUSTOMER')")
     public String update(@PathVariable Long id,
                          @Valid @ModelAttribute("customer") CustomerUpdateDTO dto,
                          BindingResult result,
@@ -82,6 +88,7 @@ public class CustomerController {
     }
 
     @GetMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('DELETE_CUSTOMER')")
     public String delete(@PathVariable Long id) {
         customerService.delete(id);
         return "redirect:/customers";

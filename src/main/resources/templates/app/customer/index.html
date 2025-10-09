@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/index}">
 
@@ -18,7 +19,7 @@
         <li class="breadcrumb-item active" aria-current="page">Customers</li>
     </ol>
     <div class="d-flex gap-2 mb-4">
-        <a th:href="@{'/customers/create'}" class="btn btn-primary">
+        <a th:href="@{'/customers/create'}" sec:authorize="hasAuthority('CREATE_CUSTOMER')" class="btn btn-primary">
             Add Customer
         </a>
     </div>
@@ -46,8 +47,7 @@
                 <td th:text="${customer.address}">123 Main St</td>
                 <td class="text-center">
                     <div class="d-flex gap-1 justify-content-center">
-                        <a th:href="@{'/customers/edit/' + ${customer.id}}"
-                           class="btn btn-primary" title="Edit">
+                        <a th:href="@{'/customers/edit/' + ${customer.id}}" sec:authorize="hasAuthority('EDIT_CUSTOMER')" class="btn btn-primary">
                             <i class="fas fa-pen"></i>
                         </a>
                         <button type="button"
@@ -55,6 +55,7 @@
                                 title="Delete"
                                 data-bs-toggle="modal"
                                 data-bs-target="#deleteModal"
+                                sec:authorize="hasAuthority('DELETE_CUSTOMER')"
                                 th:attr="data-id=${customer.id}, data-name=${customer.name}">
                             <i class="fas fa-trash"></i>
                         </button>

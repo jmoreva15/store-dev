@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/error}">
+<head>
+    <title>500 Internal Server Error</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="text-center mt-4">
+        <h1 class="display-1 fw-bold">500</h1>
+        <p class="lead">Internal Server Error</p>
+        <p th:text="${message != null && !#strings.isEmpty(message) ? message : 'An unexpected error occurred. Please try again later.'}">
+            An unexpected error occurred. Please try again later.
+        </p>
+        <a th:href="@{/dashboard}" class="text-decoration-none">
+            Return to Dashboard
+        </a>
+    </div>
+</section>
+</body>
+</html>
