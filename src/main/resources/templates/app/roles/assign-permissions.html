@@ -9,16 +9,23 @@
 </head>
 
 <body>
-<section layout:fragment="content" class="container-fluid px-4">
-    <h1 class="mt-4">Assign Permissions</h1>
+<section layout:fragment="content">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mt-4 mb-3 gap-2">
+        <div>
+            <h1 class="fw-bold mb-1 fs-3">Assign Permissions</h1>
+            <p class="text-muted mb-0 fs-6">Manage permissions assigned to each role.</p>
+        </div>
+    </div>
 
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
-        <li class="breadcrumb-item active">Assign Permissions</li>
-    </ol>
+    <nav>
+        <ol class="breadcrumb small mb-4">
+            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Assign Permissions</li>
+        </ol>
+    </nav>
 
-    <form th:action="@{/roles/assign-permissions}" method="get" class="row g-3 align-items-center mb-4">
-        <div class="input-group">
+    <form th:action="@{/roles/assign-permissions}" method="get" class="mb-4">
+        <div class="input-group w-auto">
             <label for="roleSelect" class="input-group-text">Select Role</label>
             <select class="form-select" id="roleSelect" name="roleId" onchange="this.form.submit()">
                 <option th:each="r : ${roles}"
@@ -30,35 +37,34 @@
         </div>
     </form>
 
-    <table class="table table-hover table-bordered align-middle">
-        <thead class="table-light text-center">
-        <tr>
-            <th>#</th>
-            <th>Assigned</th>
-            <th>Permission</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="permission, iterStat : ${role.permissions}" class="text-center">
-            <td th:text="${iterStat.index + 1}"></td>
-            <td>
-                <form th:action="@{/roles/assign-permissions/{roleId}/assign-role-permission(roleId=${role.id})}"
-                      method="post">
-                    <input type="hidden" name="permissionId" th:value="${permission.id}">
-                    <input type="hidden" name="assigned" th:value="${!permission.assigned}">
-
-                    <div class="form-check form-switch d-flex justify-content-center">
-                        <input class="form-check-input" type="checkbox"
-                               th:checked="${permission.assigned}"
-                               onchange="this.form.submit()">
-                    </div>
-                </form>
-            </td>
-            <td th:text="${permission.name}" class="text-center"></td>
-        </tr>
-        </tbody>
-    </table>
-
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light text-center">
+            <tr>
+                <th>#</th>
+                <th>Assigned</th>
+                <th>Permission</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="permission, iterStat : ${role.permissions}" class="text-center">
+                <td th:text="${iterStat.index + 1}">1</td>
+                <td>
+                    <form th:action="@{/roles/assign-permissions/{roleId}(roleId=${role.id})}" method="post">
+                        <input type="hidden" name="permissionId" th:value="${permission.id}">
+                        <input type="hidden" name="assigned" th:value="${!permission.assigned}">
+                        <div class="form-check form-switch d-flex justify-content-center">
+                            <input class="form-check-input" type="checkbox"
+                                   th:checked="${permission.assigned}"
+                                   onchange="this.form.submit()">
+                        </div>
+                    </form>
+                </td>
+                <td th:text="${permission.name}" class="text-center"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </section>
 </body>
 </html>

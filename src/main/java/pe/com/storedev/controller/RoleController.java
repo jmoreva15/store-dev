@@ -96,7 +96,7 @@ public class RoleController {
         return "app/roles/assign-permissions";
     }
 
-    @PostMapping("/assign-permissions/{roleId}/assign-role-permission")
+    @PostMapping("/assign-permissions/{roleId}")
     @PreAuthorize("hasAuthority('ASSIGN_PERMISSION')")
     public String assignRolePermission(@PathVariable Long roleId,
                                    @RequestParam Long permissionId,
