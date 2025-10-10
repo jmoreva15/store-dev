@@ -5,6 +5,7 @@ CREATE TABLE users
     email      VARCHAR(150)          NOT NULL,
     password   VARCHAR(255)          NOT NULL,
     active     BIT(1)                NOT NULL,
+    deleted    BIT(1)                NOT NULL,
     created_at datetime              NOT NULL,
     updated_at datetime              NULL,
     role_id    BIGINT                NULL,

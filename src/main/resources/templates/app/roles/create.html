@@ -5,19 +5,19 @@
       layout:decorate="~{layout/index}">
 
 <head>
-    <title>Create Customer</title>
+    <title>Create Role</title>
 </head>
 
 <body>
 <section layout:fragment="content">
-    <h1 class="mt-4">Create Customer</h1>
+    <h1 class="mt-4">Create Role</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
-        <li class="breadcrumb-item"><a th:href="@{/customers}">Customers</a></li>
+        <li class="breadcrumb-item"><a th:href="@{/roles}">Roles</a></li>
         <li class="breadcrumb-item active">Create</li>
     </ol>
 
-    <div th:replace="~{fragment/customer/form :: form(@{/customers/create})}"></div>
+    <div th:replace="~{fragment/role/form :: form(@{/roles/create})}"></div>
 </section>
 </body>
 </html>

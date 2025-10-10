@@ -25,6 +25,9 @@ public class Role {
     @Column(nullable = false)
     private Boolean active = Boolean.TRUE;
 
+    @Column(nullable = false)
+    private Boolean deleted = Boolean.FALSE;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

@@ -15,8 +15,8 @@
         <p th:text="${message != null && !#strings.isEmpty(message) ? message : 'An unexpected error occurred. Please try again later.'}">
             An unexpected error occurred. Please try again later.
         </p>
-        <a th:href="@{/dashboard}" class="text-decoration-none">
-            Return to Dashboard
+        <a onclick="window.history.back()" class="text-decoration-none" style="cursor: pointer">
+            Return to Previous Page
         </a>
     </div>
 </section>
