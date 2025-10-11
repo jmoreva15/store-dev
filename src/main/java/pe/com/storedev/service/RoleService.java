@@ -10,7 +10,7 @@ import pe.com.storedev.dto.rol.RoleUpdateDTO;
 import java.util.List;
 
 public interface RoleService {
-    List<RoleDTO> findAll();
+    List<RoleDTO> findAllActive();
     Page<RoleDTO> findAll(Pageable pageable);
     RoleDTO create(RoleCreateDTO roleCreateDTO);
     RoleDTO update(Long id, RoleUpdateDTO roleUpdateDTO);

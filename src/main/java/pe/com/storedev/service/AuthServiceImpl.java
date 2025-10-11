@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pe.com.storedev.entity.User;
+import pe.com.storedev.exception.UserInactiveException;
 import pe.com.storedev.repository.UserRepository;
 
 @Service
@@ -17,8 +19,14 @@ public class AuthServiceImpl implements UserDetailsService, AuthService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(""));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if (!user.getActive() || user.getDeleted() || !user.getRole().getActive() || user.getRole().getDeleted()) {
+            throw new UserInactiveException("User inactive or deleted: " + email);
+        }
+
+        return user;
     }
 
     @Override

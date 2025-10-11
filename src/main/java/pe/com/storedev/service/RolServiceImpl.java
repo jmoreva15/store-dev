@@ -27,8 +27,8 @@ public class RolServiceImpl implements RoleService {
     private final RoleMapper roleMapper;
 
     @Override
-    public List<RoleDTO> findAll() {
-        return roleRepository.findAll()
+    public List<RoleDTO> findAllActive() {
+        return roleRepository.findAllActiveNotDeleted()
                 .stream().map(roleMapper::toDTO)
                 .collect(Collectors.toList());
     }
@@ -36,7 +36,7 @@ public class RolServiceImpl implements RoleService {
     @Override
     @Transactional(readOnly = true)
     public Page<RoleDTO> findAll(Pageable pageable) {
-        return roleRepository.findAll(pageable)
+        return roleRepository.findAllNotDeleted(pageable)
                 .map(roleMapper::toDTO);
     }
 
@@ -60,7 +60,7 @@ public class RolServiceImpl implements RoleService {
     @Override
     @Transactional(readOnly = true)
     public RoleDTO findById(Long id) {
-        Role role = roleRepository.findById(id)
+        Role role = roleRepository.findByIdNotDeleted(id)
                 .orElseThrow(() -> new NotFoundException("Role not found with ID: " + id));
         return roleMapper.toDTO(role);
     }

@@ -95,16 +95,17 @@ public class RoleController {
     public String assignPermissions(@RequestParam Long roleId, Model model) {
         RolePermissionsDTO role = roleService.findRoleWithAllPermissions(roleId);
         model.addAttribute("role", role);
-        model.addAttribute("roles", roleService.findAll());
+        model.addAttribute("roles", roleService.findAllActive());
         return "app/roles/assign-permissions";
     }
 
     @PostMapping("/assign-permissions/{roleId}")
     @PreAuthorize("hasAuthority('ASSIGN_PERMISSION')")
-    public String assignRolePermission(@PathVariable Long roleId,
-                                   @RequestParam Long permissionId,
-                                   @RequestParam Boolean assigned,
-                                   Authentication authentication) {
+    public String assignRolePermission(
+            @PathVariable Long roleId,
+            @RequestParam Long permissionId,
+            @RequestParam Boolean assigned,
+            Authentication authentication) {
         roleService.assignPermissionToRole(roleId, permissionId, assigned);
         authService.refreshAuthenticatedUser(authentication);
         return "redirect:/roles/assign-permissions?roleId=" + roleId;
