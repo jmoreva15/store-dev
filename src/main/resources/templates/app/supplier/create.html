@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/index}">
+
+<head>
+    <title>Create Supplier</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mt-4 mb-3 gap-2">
+        <div>
+            <h1 class="fw-bold mb-1 fs-3">Create Supplier</h1>
+            <p class="text-muted mb-0 fs-6">Add a new supplier to the system.</p>
+        </div>
+    </div>
+
+    <nav>
+        <ol class="breadcrumb small mb-4">
+            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/suppliers}">Suppliers</a></li>
+            <li class="breadcrumb-item active">Create</li>
+        </ol>
+    </nav>
+
+    <div th:replace="~{fragment/supplier/form :: form(@{/suppliers/create})}"></div>
+</section>
+</body>
+</html>
