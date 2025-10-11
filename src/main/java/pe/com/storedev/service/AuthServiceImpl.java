@@ -5,7 +5,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pe.com.storedev.entity.User;
@@ -14,7 +13,7 @@ import pe.com.storedev.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements UserDetailsService, AuthService {
+public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
 
     @Override
