@@ -51,18 +51,19 @@
                     <a class="nav-link collapsed"
                        data-bs-toggle="collapse"
                        data-bs-target="#collapseMaintenance"
-                       sec:authorize="hasAuthority('VIEW_ROLE') or hasAuthority('ASSIGN_PERMISSION')">
+                       sec:authorize="hasAnyAuthority('VIEW_ROLE', 'ASSIGN_PERMISSION', 'VIEW_CATEGORY')">
                         <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
                         Maintenance
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
 
                     <div class="collapse" id="collapseMaintenance" data-bs-parent="#sidenavAccordion"
-                         sec:authorize="hasAuthority('VIEW_ROLE') or hasAuthority('ASSIGN_PERMISSION')">
+                         sec:authorize="hasAnyAuthority('VIEW_ROLE', 'ASSIGN_PERMISSION', 'VIEW_CATEGORY')">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" th:href="@{/roles}" sec:authorize="hasAuthority('VIEW_ROLE')">Roles</a>
                             <a class="nav-link" th:href="@{/roles/assign-permissions?roleId=1}"
                                sec:authorize="hasAuthority('ASSIGN_PERMISSION')">Assign Permissions</a>
+                            <a class="nav-link" th:href="@{/categories}" sec:authorize="hasAuthority('VIEW_CATEGORY')">Categories</a>
                         </nav>
                     </div>
 

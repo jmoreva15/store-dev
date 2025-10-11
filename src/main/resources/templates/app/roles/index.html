@@ -64,6 +64,10 @@
                                 sec:authorize="hasAuthority('DELETE_ROLE')">
                             <i class="fas fa-trash"></i>
                         </button>
+                        <span class="text-muted small fst-italic"
+                              sec:authorize="!hasAuthority('EDIT_ROLE') and !hasAuthority('DELETE_ROLE')">
+                            No actions
+                        </span>
                     </div>
                 </td>
             </tr>

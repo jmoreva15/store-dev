@@ -15,7 +15,7 @@
         <p th:text="${message != null && !#strings.isEmpty(message) ? message : 'The page you’re looking for doesn’t exist.'}">
             The page you’re looking for doesn’t exist.
         </p>
-        <a onclick="window.history.back()" class="text-decoration-none" style="cursor: pointer">
+        <a onclick="goBack()" class="text-decoration-none" style="cursor: pointer">
             Return to Previous Page
         </a>
     </div>

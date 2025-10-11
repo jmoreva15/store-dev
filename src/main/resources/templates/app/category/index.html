@@ -6,27 +6,27 @@
       layout:decorate="~{layout/index}">
 
 <head>
-    <title>Customers</title>
+    <title>Categories</title>
 </head>
 
 <body>
 <section layout:fragment="content">
     <div class="d-flex flex-wrap justify-content-between align-items-center mt-4 mb-3 gap-2">
         <div>
-            <h1 class="fw-bold mb-1 fs-3">Customers</h1>
-            <p class="text-muted mb-0 fs-6">Manage all your registered customers efficiently.</p>
+            <h1 class="fw-bold mb-1 fs-3">Categories</h1>
+            <p class="text-muted mb-0 fs-6">Manage all your registered categories efficiently.</p>
         </div>
-        <a th:href="@{'/customers/create'}"
-           sec:authorize="hasAuthority('CREATE_CUSTOMER')"
+        <a th:href="@{'/categories/create'}"
+           sec:authorize="hasAuthority('CREATE_CATEGORY')"
            class="btn btn-primary px-3 py-2">
-            Add Customer
+            Add Category
         </a>
     </div>
 
     <nav>
         <ol class="breadcrumb small mb-4">
             <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
-            <li class="breadcrumb-item active">Customers</li>
+            <li class="breadcrumb-item active">Categories</li>
         </ol>
     </nav>
 
@@ -36,67 +36,59 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Document Type</th>
-                <th>Document Number</th>
-                <th>Phone</th>
-                <th>Address</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="customer, iterStat : ${customers.content}">
+            <tr th:each="category, iterStat : ${categories.content}">
                 <td th:text="${iterStat.index + 1}">1</td>
-                <td th:text="${customer.name}">John Doe</td>
-                <td th:text="${customer.documentType}">DNI</td>
-                <td th:text="${customer.documentNumber}">12345678</td>
-                <td th:text="${customer.phone}">555-1234</td>
-                <td th:text="${customer.address}">123 Main St</td>
+                <td th:text="${category.name}">Electronics</td>
                 <td class="text-center">
                     <div class="d-flex gap-1 justify-content-center">
-                        <a th:href="@{'/customers/edit/' + ${customer.id}}"
-                           sec:authorize="hasAuthority('EDIT_CUSTOMER')"
+                        <a th:href="@{'/categories/edit/' + ${category.id}}"
+                           sec:authorize="hasAuthority('EDIT_CATEGORY')"
                            class="btn btn-primary">
                             <i class="fas fa-pen"></i>
                         </a>
                         <button class="btn btn-primary"
-                                th:data-id="${customer.id}"
-                                th:data-name="${customer.name}"
+                                th:data-id="${category.id}"
+                                th:data-name="${category.name}"
                                 onclick="openDeleteModal(this.getAttribute('data-id'), this.getAttribute('data-name'))"
-                                sec:authorize="hasAuthority('DELETE_CUSTOMER')">
+                                sec:authorize="hasAuthority('DELETE_CATEGORY')">
                             <i class="fas fa-trash"></i>
                         </button>
                         <span class="text-muted small fst-italic"
-                              sec:authorize="!hasAuthority('EDIT_CUSTOMER') and !hasAuthority('DELETE_CUSTOMER')">
+                              sec:authorize="!hasAuthority('EDIT_CATEGORY') and !hasAuthority('DELETE_CATEGORY')">
                             No actions
                         </span>
                     </div>
                 </td>
             </tr>
 
-            <tr th:if="${customers.isEmpty()}">
-                <td colspan="7" class="text-center text-muted py-4">
-                    No customer records found.
+            <tr th:if="${categories.isEmpty()}">
+                <td colspan="4" class="text-center text-muted py-4">
+                    No category records found.
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <nav th:if="${customers.totalPages > 1}" class="mt-3">
+    <nav th:if="${categories.totalPages > 1}" class="mt-3">
         <ul class="pagination justify-content-end mb-0">
-            <li class="page-item" th:classappend="${customers.first} ? 'disabled'">
-                <a class="page-link" th:href="@{/customers(page=${customers.number - 1})}">Previous</a>
+            <li class="page-item" th:classappend="${categories.first} ? 'disabled'">
+                <a class="page-link" th:href="@{/categories(page=${categories.number - 1})}">Previous</a>
             </li>
 
             <li class="page-item"
-                th:each="pageNum : ${#numbers.sequence(0, customers.totalPages - 1)}"
-                th:classappend="${pageNum == customers.number} ? 'active'">
-                <a class="page-link" th:href="@{/customers(page=${pageNum})}"
+                th:each="pageNum : ${#numbers.sequence(0, categories.totalPages - 1)}"
+                th:classappend="${pageNum == categories.number} ? 'active'">
+                <a class="page-link" th:href="@{/categories(page=${pageNum})}"
                    th:text="${pageNum + 1}">1</a>
             </li>
 
-            <li class="page-item" th:classappend="${customers.last} ? 'disabled'">
-                <a class="page-link" th:href="@{/customers(page=${customers.number + 1})}">Next</a>
+            <li class="page-item" th:classappend="${categories.last} ? 'disabled'">
+                <a class="page-link" th:href="@{/categories(page=${categories.number + 1})}">Next</a>
             </li>
         </ul>
     </nav>
@@ -125,7 +117,7 @@
     <script>
         function openDeleteModal(id, name) {
             $("#nameToDelete").text(name);
-            $("#confirmDeleteBtn").attr("href", "/customers/delete/" + id);
+            $("#confirmDeleteBtn").attr("href", "/categories/delete/" + id);
             $("#deleteModal").modal("show");
         }
     </script>

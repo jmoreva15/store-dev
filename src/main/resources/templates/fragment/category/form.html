@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
 <th:block th:fragment="form(actionUrl)">
-    <form th:action="@{${actionUrl}}" th:object="${role}" method="post" class="needs-validation" novalidate>
+    <form th:action="@{${actionUrl}}" th:object="${category}" method="post" class="needs-validation" novalidate>
         <div class="row mb-3">
             <label for="name" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
@@ -12,12 +12,11 @@
         </div>
 
         <div class="row mb-3">
-            <label for="active" class="col-sm-2 col-form-label">Active</label>
+            <label for="description" class="col-sm-2 col-form-label">Description</label>
             <div class="col-sm-10">
-                <select id="active" class="form-select" th:field="*{active}">
-                    <option th:value="true">Active</option>
-                    <option th:value="false">Inactive</option>
-                </select>
+                <textarea id="description" th:field="*{description}" rows="3" class="form-control"
+                          th:errorclass="is-invalid"></textarea>
+                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger small"></div>
             </div>
         </div>
 

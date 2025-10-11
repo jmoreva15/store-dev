@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import pe.com.storedev.dto.rol.RoleCreateDTO;
 import pe.com.storedev.dto.rol.RoleDTO;
 import pe.com.storedev.dto.rol.RolePermissionsDTO;
 import pe.com.storedev.dto.rol.RoleUpdateDTO;
+import pe.com.storedev.service.AuthService;
 import pe.com.storedev.service.RoleService;
 
 @Controller
@@ -20,6 +22,7 @@ import pe.com.storedev.service.RoleService;
 @RequiredArgsConstructor
 public class RoleController {
     private final RoleService roleService;
+    private final AuthService authService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('VIEW_ROLE')")
@@ -100,9 +103,10 @@ public class RoleController {
     @PreAuthorize("hasAuthority('ASSIGN_PERMISSION')")
     public String assignRolePermission(@PathVariable Long roleId,
                                    @RequestParam Long permissionId,
-                                   @RequestParam Boolean assigned) {
-
+                                   @RequestParam Boolean assigned,
+                                   Authentication authentication) {
         roleService.assignPermissionToRole(roleId, permissionId, assigned);
+        authService.refreshAuthenticatedUser(authentication);
         return "redirect:/roles/assign-permissions?roleId=" + roleId;
     }
 }

@@ -20,3 +20,14 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 });
+
+function goBack() {
+    const currentUrl = window.location.href;
+    const previousUrl = document.referrer;
+
+    if (previousUrl && previousUrl !== currentUrl) {
+        window.history.back();
+    } else {
+        window.location.href = '/dashboard';
+    }
+}

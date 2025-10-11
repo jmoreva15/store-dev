@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/index}">
+
+<head>
+    <title>Edit Category</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mt-4 mb-3 gap-2">
+        <div>
+            <h1 class="fw-bold mb-1 fs-3">Edit Category</h1>
+            <p class="text-muted mb-0 fs-6">Update the information of an existing category.</p>
+        </div>
+    </div>
+
+    <nav>
+        <ol class="breadcrumb small mb-4">
+            <li class="breadcrumb-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/categories}">Categories</a></li>
+            <li class="breadcrumb-item active">Edit</li>
+        </ol>
+    </nav>
+
+    <div th:replace="~{fragment/category/form :: form(@{'/categories/edit/' + ${categoryId}})}"></div>
+</section>
+</body>
+</html>
