@@ -13,6 +13,9 @@ import pe.com.storedev.exception.NotFoundException;
 import pe.com.storedev.mapper.CategoryMapper;
 import pe.com.storedev.repository.CategoryRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
@@ -24,6 +27,13 @@ public class CategoryServiceImpl implements CategoryService {
     public Page<CategoryDTO> findAll(Pageable pageable) {
         return categoryRepository.findAllNotDeleted(pageable)
                 .map(categoryMapper::toDTO);
+    }
+
+    @Override
+    public List<CategoryDTO> findAll() {
+        return categoryRepository.findAllNotDeleted()
+                .stream().map(categoryMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

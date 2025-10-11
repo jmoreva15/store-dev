@@ -7,12 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pe.com.storedev.entity.Category;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("SELECT c FROM Category c WHERE c.deleted = FALSE")
     Page<Category> findAllNotDeleted(Pageable pageable);
+
+    @Query("SELECT c FROM Category c WHERE c.deleted = FALSE")
+    List<Category> findAllNotDeleted();
 
     @Query("SELECT c FROM Category c WHERE c.id = :id AND c.deleted = FALSE")
     Optional<Category> findByIdNotDeleted(Long id);

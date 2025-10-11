@@ -6,6 +6,9 @@ import pe.com.storedev.dto.category.CategoryDTO;
 import pe.com.storedev.dto.category.CategoryUpdateDTO;
 import pe.com.storedev.entity.Category;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Component
 public class CategoryMapper {
     public Category toEntity(CategoryCreateDTO dto) {
@@ -35,5 +38,15 @@ public class CategoryMapper {
 
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
+    }
+
+    public Set<Category> toEntitySet(Set<Long> ids) {
+        if (ids == null) return null;
+
+        return ids.stream().map(id -> {
+            Category category = new Category();
+            category.setId(id);
+            return category;
+        }).collect(Collectors.toSet());
     }
 }
