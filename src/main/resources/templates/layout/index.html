@@ -88,6 +88,22 @@
                             <a class="nav-link" th:href="@{/suppliers}" sec:authorize="hasAuthority('VIEW_SUPPLIER')">Suppliers</a>
                         </nav>
                     </div>
+
+                    <a class="nav-link collapsed"
+                       data-bs-toggle="collapse"
+                       data-bs-target="#collapseSales"
+                       sec:authorize="hasAnyAuthority('VIEW_STORE')">
+                        <div class="sb-nav-link-icon"><i class="fas fa-cash-register"></i></div>
+                        Sales
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+
+                    <div class="collapse" id="collapseSales" data-bs-parent="#sidenavAccordion"
+                         sec:authorize="hasAnyAuthority('VIEW_STORE')">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" th:href="@{/stores}" sec:authorize="hasAuthority('VIEW_STORE')">Stores</a>
+                        </nav>
+                    </div>
                 </div>
             </div>
 

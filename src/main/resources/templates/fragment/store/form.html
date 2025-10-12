@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="form(actionUrl)">
+    <form th:action="@{${actionUrl}}" th:object="${store}" method="post" class="needs-validation" novalidate>
+        <div class="row mb-3">
+            <label for="ruc" class="col-sm-2 col-form-label">RUC</label>
+            <div class="col-sm-10">
+                <input id="ruc" type="text" th:field="*{ruc}" class="form-control" th:errorclass="is-invalid">
+                <div th:if="${#fields.hasErrors('ruc')}" th:errors="*{ruc}" class="text-danger small"></div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="address" class="col-sm-2 col-form-label">Address</label>
+            <div class="col-sm-10">
+                <input id="address" type="text" th:field="*{address}" class="form-control" th:errorclass="is-invalid">
+                <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger small"></div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+            <div class="col-sm-10">
+                <input id="phone" type="text" th:field="*{phone}" class="form-control" th:errorclass="is-invalid">
+                <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger small"></div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="active" class="col-sm-2 col-form-label">Status</label>
+            <div class="col-sm-10">
+                <select id="active" th:field="*{active}" class="form-select" th:errorclass="is-invalid">
+                    <option th:value="true">Active</option>
+                    <option th:value="false">Inactive</option>
+                </select>
+                <div th:if="${#fields.hasErrors('active')}" th:errors="*{active}" class="text-danger small"></div>
+            </div>
+        </div>
+
+        <div class="row mt-4 gap-3 gap-sm-0">
+            <div class="offset-sm-2 col-sm-5 d-grid">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            <div class="col-sm-5 d-grid">
+                <button type="button" onclick="goBack()" class="btn btn-primary">Back</button>
+            </div>
+        </div>
+    </form>
+</th:block>
+</body>
+</html>
