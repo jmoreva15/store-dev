@@ -24,6 +24,13 @@ public class RoleMapper {
         return role;
     }
 
+    public Role toEntity(Long roleId) {
+        if (roleId == null) return null;
+        Role role = new Role();
+        role.setId(roleId);
+        return role;
+    }
+
     public RoleDTO toDTO(Role entity) {
         if (entity == null) return null;
 

@@ -3,7 +3,7 @@ CREATE TABLE users
     id         BIGINT AUTO_INCREMENT NOT NULL,
     name       VARCHAR(100)          NOT NULL,
     email      VARCHAR(150)          NOT NULL,
-    password   VARCHAR(255)          NOT NULL,
+    password   VARCHAR(255)          NULL,
     active     BIT(1)                NOT NULL,
     deleted    BIT(1)                NOT NULL,
     created_at datetime              NOT NULL,

@@ -36,6 +36,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Boolean deleted = Boolean.FALSE;
 
+    @Column(name = "email_verified", nullable = false)
+    private Boolean emailVerified = Boolean.FALSE;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

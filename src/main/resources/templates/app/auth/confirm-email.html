@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/auth}">
+
+<head>
+    <title>Confirm Email</title>
+</head>
+
+<body>
+<section layout:fragment="content" class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card border-0" style="max-width: 420px; width: 100%; border-radius: 1rem;">
+        <div class="card-body p-5">
+            <h2 class="fw-bold mb-4 text-center">Confirm Your Email</h2>
+            <p class="text-muted text-center mb-4">Please set your password to activate your account</p>
+
+            <form th:action="@{/confirm-email}" th:object="${confirmEmailDTO}" method="post" novalidate>
+                <input type="hidden" th:field="*{token}"/>
+
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Password" required>
+                    <label for="password">Password</label>
+                    <div class="text-danger mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                </div>
+
+                <button type="submit" class="btn btn-dark btn-lg w-100 fw-semibold">
+                    Confirm Account
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

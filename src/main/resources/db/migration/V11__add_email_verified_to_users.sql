@@ -1,0 +1,2 @@
+ALTER TABLE users
+    ADD COLUMN email_verified BIT(1) NOT NULL DEFAULT 0;

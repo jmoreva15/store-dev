@@ -7,6 +7,16 @@ import org.springframework.security.access.AccessDeniedException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(InvalidTokenException.class)
+    public String handleInvalidTokenException() {
+        return "redirect:/login?invalidToken";
+    }
+
+    @ExceptionHandler(ExpiredTokenException.class)
+    public String handleExpiredTokenException() {
+        return "redirect:/login?expiredToken";
+    }
+
     @ExceptionHandler(AccessDeniedException.class)
     public String handleAccessDeniedException() {
         return "error/403";

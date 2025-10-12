@@ -18,13 +18,13 @@ public class AuthenticationFailureHandler implements org.springframework.securit
             AuthenticationException exception) throws IOException, ServletException {
         String email = request.getParameter("username");
 
-        if (exception.getCause() instanceof UserInactiveException) {
+        if (exception.getCause() instanceof EmailNotVerifiedException) {
+            response.sendRedirect("/login?emailNotVerified");
+        } else if (exception.getCause() instanceof UserInactiveException) {
             response.sendRedirect("/login?inactive=true&email=" + email);
-        }
-        else if (exception instanceof BadCredentialsException) {
+        } else if (exception instanceof BadCredentialsException) {
             response.sendRedirect("/login?invalid=true&email=" + email);
-        }
-        else {
+        } else {
             response.sendRedirect("/login?error=true&email=" + email);
         }
     }
