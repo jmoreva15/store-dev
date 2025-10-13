@@ -21,7 +21,6 @@ public class ProductMapper {
         product.setName(dto.getName());
         product.setDescription(dto.getDescription());
         product.setActive(dto.getActive());
-        product.setDeleted(false);
         product.setCategories(categoryMapper.toEntitySet(dto.getCategoryIds()));
 
         return product;

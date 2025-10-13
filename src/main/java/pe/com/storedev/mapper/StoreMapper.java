@@ -15,8 +15,7 @@ public class StoreMapper {
         store.setRuc(dto.getRuc());
         store.setAddress(dto.getAddress());
         store.setPhone(dto.getPhone());
-        store.setActive(dto.getActive() != null ? dto.getActive() : Boolean.TRUE);
-        store.setDeleted(Boolean.FALSE);
+        store.setActive(dto.getActive());
         return store;
     }
 

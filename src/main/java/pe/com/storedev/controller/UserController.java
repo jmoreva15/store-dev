@@ -97,7 +97,6 @@ public class UserController {
         return "redirect:/users";
     }
 
-
     @GetMapping("/send-confirm-email/{userId}")
     @PreAuthorize("hasAuthority('SEND_CONFIRM_EMAIL')")
     public String sendConfirmEmail(@PathVariable Long userId) throws MessagingException {
