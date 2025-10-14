@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "suppliers")
 public class Supplier {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 100, nullable = false)

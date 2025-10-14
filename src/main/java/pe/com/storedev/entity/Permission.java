@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "permissions")
 public class Permission implements GrantedAuthority {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", length = 100, nullable = false)
