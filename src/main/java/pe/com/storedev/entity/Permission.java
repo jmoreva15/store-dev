@@ -8,12 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "permissions")
+@Entity @Table(name = "permissions")
 public class Permission implements GrantedAuthority {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

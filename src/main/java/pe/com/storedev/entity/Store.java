@@ -10,12 +10,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "stores")
+@Entity @Table(name = "stores")
 public class Store {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
