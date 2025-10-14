@@ -31,14 +31,14 @@ public class RoleController {
                         Model model) {
         Page<RoleDTO> roles = roleService.findAll(PageRequest.of(page, size));
         model.addAttribute("roles", roles);
-        return "app/roles/index";
+        return "app/role/index";
     }
 
     @GetMapping("/create")
     @PreAuthorize("hasAuthority('CREATE_ROLE')")
     public String create(Model model) {
         model.addAttribute("role", new RoleCreateDTO());
-        return "app/roles/create";
+        return "app/role/create";
     }
 
     @PostMapping("/create")
@@ -47,7 +47,7 @@ public class RoleController {
                          BindingResult result,
                          Model model) {
         if (result.hasErrors()) {
-            return "app/roles/create";
+            return "app/role/create";
         }
 
         roleService.create(dto);
@@ -65,7 +65,7 @@ public class RoleController {
 
         model.addAttribute("roleId", id);
         model.addAttribute("role", updateDTO);
-        return "app/roles/edit";
+        return "app/role/edit";
     }
 
     @PostMapping("/edit/{id}")
@@ -96,7 +96,7 @@ public class RoleController {
         RolePermissionsDTO role = roleService.findRoleWithAllPermissions(roleId);
         model.addAttribute("role", role);
         model.addAttribute("roles", roleService.findAllActive());
-        return "app/roles/assign-permissions";
+        return "app/role/assign-permissions";
     }
 
     @PostMapping("/assign-permissions/{roleId}")
