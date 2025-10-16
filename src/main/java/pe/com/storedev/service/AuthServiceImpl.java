@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pe.com.storedev.dto.auth.ConfirmEmailDTO;
+import pe.com.storedev.dto.auth.ResetPasswordDTO;
 import pe.com.storedev.entity.Token;
 import pe.com.storedev.entity.TokenType;
 import pe.com.storedev.entity.User;
@@ -59,6 +60,24 @@ public class AuthServiceImpl implements AuthService {
     public void confirmEmail(ConfirmEmailDTO dto) {
         Token token = tokenRepository
                 .findByValueAndTypeAndActiveTrue(dto.getToken(), TokenType.CONFIRM_EMAIL)
+                .orElseThrow(() -> new InvalidTokenException("Token not found"));
+
+        token.setActive(false);
+        tokenRepository.save(token);
+
+        if (token.isExpired()) throw new ExpiredTokenException("Token expired");
+
+        User user = token.getUser();
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setEmailVerified(true);
+
+        userRepository.save(user);
+    }
+
+    @Override
+    public void resetPassword(ResetPasswordDTO dto) {
+        Token token = tokenRepository
+                .findByValueAndTypeAndActiveTrue(dto.getToken(), TokenType.RESET_PASSWORD)
                 .orElseThrow(() -> new InvalidTokenException("Token not found"));
 
         token.setActive(false);

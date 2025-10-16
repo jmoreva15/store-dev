@@ -48,6 +48,27 @@ public class EmailServiceImpl implements EmailService {
         sendEmail(user.getEmail(), "Confirm your email", htmlContent, true);
     }
 
+    @Override
+    public void sendResetPasswordEmail(String email) throws MessagingException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+        Token token = new Token();
+        token.setUser(user);
+        token.setType(TokenType.RESET_PASSWORD);
+        tokenRepository.save(token);
+
+        String actionUrl = appUrl + "/reset-password?token=" + token.getValue();
+
+        Context context = new Context();
+        context.setVariable("name", user.getName());
+        context.setVariable("actionUrl", actionUrl);
+
+        String htmlContent = templateEngine.process("email/reset-password", context);
+
+        sendEmail(user.getEmail(), "Reset your password", htmlContent, true);
+    }
+
     private void sendEmail(String to, String subject, String content, boolean isHtml)
             throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
