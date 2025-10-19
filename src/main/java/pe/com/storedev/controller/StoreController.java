@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pe.com.storedev.dto.product.AssignProductDTO;
 import pe.com.storedev.dto.store.StoreCreateDTO;
 import pe.com.storedev.dto.store.StoreDTO;
 import pe.com.storedev.dto.store.StoreUpdateDTO;
+import pe.com.storedev.service.ProductService;
 import pe.com.storedev.service.StoreService;
 
 @Controller
@@ -19,6 +21,7 @@ import pe.com.storedev.service.StoreService;
 @RequiredArgsConstructor
 public class StoreController {
     private final StoreService storeService;
+    private final ProductService productService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('VIEW_STORE')")
@@ -85,5 +88,33 @@ public class StoreController {
     public String delete(@PathVariable Long id) {
         storeService.delete(id);
         return "redirect:/stores";
+    }
+
+
+    @GetMapping("assign-product")
+    @PreAuthorize("hasAuthority('ASSIGN_PRODUCT_STORE')")
+    public String assignProduct(Model model) {
+        model.addAttribute("stores", storeService.findAllActive());
+        model.addAttribute("assignProduct", new AssignProductDTO());
+        model.addAttribute("products", productService.findAllActive());
+        model.addAttribute("allProductAssignments", storeService.findAllProductAssignments());
+
+        return "app/store/assign-product";
+    }
+
+    @PostMapping("assign-product")
+    @PreAuthorize("hasAuthority('ASSIGN_PRODUCT_STORE')")
+    public String assignProduct(@Valid @ModelAttribute("assignProduct") AssignProductDTO dto,
+                                BindingResult result,
+                                Model model)  {
+        if (result.hasErrors()) {
+            model.addAttribute("stores", storeService.findAllActive());
+            model.addAttribute("products", productService.findAllActive());
+            model.addAttribute("allProductAssignments", storeService.findAllProductAssignments());
+            return "app/store/assign-product";
+        }
+
+        storeService.assignProduct(dto);
+        return "redirect:/stores/assign-product";
     }
 }

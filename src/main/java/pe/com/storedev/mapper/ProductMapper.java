@@ -26,6 +26,14 @@ public class ProductMapper {
         return product;
     }
 
+    public Product toEntity(Long id) {
+        if (id == null) return null;
+
+        Product product = new Product();
+        product.setId(id);
+        return product;
+    }
+
     public ProductDTO toDTO(Product entity) {
         if (entity == null) return null;
 

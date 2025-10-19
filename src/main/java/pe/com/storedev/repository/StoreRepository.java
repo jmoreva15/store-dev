@@ -7,12 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pe.com.storedev.entity.Store;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface StoreRepository extends JpaRepository<Store, Long> {
     @Query("SELECT s FROM Store s WHERE s.deleted = FALSE")
     Page<Store> findAllNotDeleted(Pageable pageable);
+
+    @Query("SELECT s FROM Store s WHERE s.deleted = FALSE AND s.active = TRUE")
+    List<Store> findAllActiveNotDeleted();
 
     @Query("SELECT s FROM Store s WHERE s.id = :id AND s.deleted = FALSE")
     Optional<Store> findByIdNotDeleted(Long id);

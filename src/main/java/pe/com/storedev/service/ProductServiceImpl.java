@@ -13,6 +13,9 @@ import pe.com.storedev.exception.NotFoundException;
 import pe.com.storedev.mapper.ProductMapper;
 import pe.com.storedev.repository.ProductRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -24,6 +27,13 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductDTO> findAll(Pageable pageable) {
         return productRepository.findAllNotDeleted(pageable)
                 .map(productMapper::toDTO);
+    }
+
+    @Override
+    public List<ProductDTO> findAllActive() {
+        return productRepository.findAllActiveNotDeleted()
+                .stream().map(productMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

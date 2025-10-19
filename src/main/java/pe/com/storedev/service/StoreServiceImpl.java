@@ -5,18 +5,25 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pe.com.storedev.dto.product.AssignProductDTO;
 import pe.com.storedev.dto.store.StoreCreateDTO;
 import pe.com.storedev.dto.store.StoreDTO;
+import pe.com.storedev.dto.store.StoreProductDTO;
 import pe.com.storedev.dto.store.StoreUpdateDTO;
 import pe.com.storedev.entity.Store;
 import pe.com.storedev.exception.NotFoundException;
 import pe.com.storedev.mapper.StoreMapper;
+import pe.com.storedev.repository.StoreProductRepository;
 import pe.com.storedev.repository.StoreRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class StoreServiceImpl implements StoreService {
     private final StoreRepository storeRepository;
+    private final StoreProductRepository storeProductRepository;
     private final StoreMapper storeMapper;
 
     @Override
@@ -24,6 +31,20 @@ public class StoreServiceImpl implements StoreService {
     public Page<StoreDTO> findAll(Pageable pageable) {
         return storeRepository.findAllNotDeleted(pageable)
                 .map(storeMapper::toDTO);
+    }
+
+    @Override
+    public List<StoreDTO> findAllActive() {
+        return storeRepository.findAllActiveNotDeleted()
+                .stream().map(storeMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StoreProductDTO> findAllProductAssignments() {
+        return storeProductRepository.findAll().stream()
+                .map(storeMapper::toStoreProductDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -49,6 +70,19 @@ public class StoreServiceImpl implements StoreService {
         Store store = storeRepository.findByIdNotDeleted(id)
                 .orElseThrow(() -> new NotFoundException("Store not found with ID: " + id));
         return storeMapper.toDTO(store);
+    }
+
+    @Override
+    public StoreProductDTO assignProduct(AssignProductDTO dto) {
+        boolean assignmentExists =  storeProductRepository
+                .findAssignment(dto.getProductId(), dto.getStoreId())
+                .isPresent();
+
+        if (assignmentExists)
+            throw new IllegalStateException("Product is already assigned to the store.");
+
+        return storeMapper.toStoreProductDTO(storeProductRepository
+                        .save(storeMapper.toAssignedProductEntity(dto)));
     }
 
     @Override
