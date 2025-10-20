@@ -15,7 +15,7 @@
             <h1 class="fw-bold mb-1 fs-3">Assign Product</h1>
             <p class="text-muted mb-0 fs-6">Manage product assignments to stores</p>
         </div>
-        <button id="btnAssignProduct" class="btn btn-primary">
+        <button onclick="submitAssignProductForm()" class="btn btn-primary">
             Assign Product
         </button>
     </div>
@@ -27,58 +27,29 @@
         </ol>
     </nav>
 
-    <form id="assignProductForm" th:object="${assignProduct}" method="post" th:action="@{/stores/assign-product}" class="needs-validation" novalidate>
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-store me-1"></i>
-                Search Store
-            </div>
-            <div class="card-body p-3">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="storeSelect" class="form-label">Store</label>
-                        <select id="storeSelect" class="form-select" th:field="*{storeId}" th:errorclass="is-invalid">
-                            <option value="" selected>Select Store</option>
-                            <option th:each="store : ${stores}"
-                                    th:value="${store.id}"
-                                    th:data-phone="${store.phone}"
-                                    th:text="${store.ruc}">
-                            </option>
-                        </select>
-                        <div th:if="${#fields.hasErrors('storeId')}" th:errors="*{storeId}" class="text-danger small"></div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="storePhone" class="form-label">Phone</label>
-                        <input id="storePhone" class="form-control" readonly>
-                    </div>
-                </div>
-            </div>
+    <form id="assignProductForm" th:object="${assignProduct}" method="post" th:action="@{/stores/assign-product}"
+          class="needs-validation row g-3 mb-4" novalidate>
+        <div class="col-md-6">
+            <label for="storeId" class="form-label">Store</label>
+            <select id="storeId" class="form-select" th:field="*{storeId}" th:errorclass="is-invalid">
+                <option value="" selected>Select Store</option>
+                <option th:each="store : ${stores}"
+                        th:value="${store.id}"
+                        th:text="${store.ruc}">
+                </option>
+            </select>
+            <div th:if="${#fields.hasErrors('storeId')}" th:errors="*{storeId}" class="text-danger small"></div>
         </div>
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-box me-1"></i>
-                Search Product
-            </div>
-            <div class="card-body p-3">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="productSelect" class="form-label">Product</label>
-                        <select id="productSelect" class="form-select" th:field="*{productId}" th:errorclass="is-invalid">
-                            <option value="" selected>Select Product</option>
-                            <option th:each="product : ${products}"
-                                    th:value="${product.id}"
-                                    th:data-description="${product.description}"
-                                    th:text="${product.name}">
-                            </option>
-                        </select>
-                        <div th:if="${#fields.hasErrors('productId')}" th:errors="*{productId}" class="text-danger small"></div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="productDescription" class="form-label">Description</label>
-                        <input id="productDescription" class="form-control" readonly>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-6">
+            <label for="productId" class="form-label">Product</label>
+            <select id="productId" class="form-select" th:field="*{productId}" th:errorclass="is-invalid">
+                <option value="" selected>Select Product</option>
+                <option th:each="product : ${products}"
+                        th:value="${product.id}"
+                        th:text="${product.name}">
+                </option>
+            </select>
+            <div th:if="${#fields.hasErrors('productId')}" th:errors="*{productId}" class="text-danger small"></div>
         </div>
     </form>
 
@@ -104,7 +75,7 @@
                 <td th:text="${assign.stock}"></td>
             </tr>
             <tr th:if="${#lists.isEmpty(allProductAssignments)}">
-                <td colspan="5" class="text-center text-muted py-4">
+                <td colspan="6" class="text-center text-muted py-4">
                     No product assignments found.
                 </td>
             </tr>
@@ -115,24 +86,9 @@
 
 <section layout:fragment="scripts">
     <script>
-        $(document).ready(function () {
-            $('#storeSelect').on('change', function () {
-                const selectedOption = $(this).find('option:selected');
-                const storePhone = selectedOption.data('phone') || '';
-                $('#storePhone').val(storePhone);
-            });
-
-            $('#productSelect').on('change', function () {
-                const selectedOption = $(this).find('option:selected');
-                const productDescription = selectedOption.data('description') || '';
-                $('#productDescription').val(productDescription);
-            });
-
-            $('#btnAssignProduct').on('click', function (e) {
-                e.preventDefault();
-                $('#assignProductForm').submit();
-            });
-        });
+        function submitAssignProductForm() {
+            $('#assignProductForm').submit();
+        }
     </script>
 </section>
 
