@@ -12,6 +12,14 @@ public class StoreProductMapper {
     private final ProductMapper productMapper;
     private final StoreMapper storeMapper;
 
+    public StoreProduct toEntity(Long id) {
+        if (id == null) return null;
+
+        StoreProduct entity = new StoreProduct();
+        entity.setId(id);
+        return entity;
+    }
+
     public StoreProductDTO toDTO(StoreProduct entity) {
         if (entity == null) return null;
 
@@ -28,16 +36,7 @@ public class StoreProductMapper {
         return dto;
     }
 
-    public StoreProduct toDTO(Long id) {
-        if (id == null) return null;
-
-        StoreProduct dto = new StoreProduct();
-        dto.setId(id);
-        return dto;
-    }
-
-
-    public StoreProduct toAssignedProductEntity(AssignProductDTO dto) {
+    public StoreProduct toEntity(AssignProductDTO dto) {
         if (dto == null) return null;
 
         StoreProduct entity = new StoreProduct();

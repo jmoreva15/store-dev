@@ -43,6 +43,7 @@ public class PurchaseMapper {
         dto.setStore(storeMapper.toDTO(entity.getStore()));
         dto.setCreatedAt(entity.getCreatedAt());
         dto.setUpdatedAt(entity.getUpdatedAt());
+        dto.setPurchaseDetails(purchaseDetailMapper.toDTO(entity.getPurchaseDetails()));
         return dto;
     }
 }

@@ -4,24 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pe.com.storedev.dto.store.StoreDTO;
-import pe.com.storedev.dto.supplier.SupplierDTO;
+import pe.com.storedev.dto.store.StoreProductDTO;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PurchaseDTO {
+public class PurchaseDetailDTO {
     private Long id;
-    private StoreDTO store;
-    private SupplierDTO supplier;
+    private BigInteger quantity;
     private BigDecimal salePrice;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private BigDecimal purchasePrice;
-    private Set<PurchaseDetailDTO> purchaseDetails;
+    private StoreProductDTO storeProduct;
 }

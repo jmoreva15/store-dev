@@ -84,7 +84,7 @@ public class StoreServiceImpl implements StoreService {
             throw new IllegalStateException("Product is already assigned to the store.");
 
         return storeProductMapper.toDTO(storeProductRepository
-                        .save(storeProductMapper.toAssignedProductEntity(dto)));
+                        .save(storeProductMapper.toEntity(dto)));
     }
 
     @Override

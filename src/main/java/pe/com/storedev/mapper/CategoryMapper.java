@@ -40,7 +40,7 @@ public class CategoryMapper {
         entity.setDescription(dto.getDescription());
     }
 
-    public Set<Category> toEntitySet(Set<Long> ids) {
+    public Set<Category> toEntity(Set<Long> ids) {
         if (ids == null) return null;
 
         return ids.stream().map(id -> {

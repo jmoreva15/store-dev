@@ -21,7 +21,7 @@ public class ProductMapper {
         product.setName(dto.getName());
         product.setDescription(dto.getDescription());
         product.setActive(dto.getActive());
-        product.setCategories(categoryMapper.toEntitySet(dto.getCategoryIds()));
+        product.setCategories(categoryMapper.toEntity(dto.getCategoryIds()));
 
         return product;
     }
@@ -58,6 +58,6 @@ public class ProductMapper {
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setActive(dto.getActive());
-        entity.setCategories(categoryMapper.toEntitySet(dto.getCategoryIds()));
+        entity.setCategories(categoryMapper.toEntity(dto.getCategoryIds()));
     }
 }
