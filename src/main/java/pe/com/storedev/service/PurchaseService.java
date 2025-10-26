@@ -9,5 +9,6 @@ import java.time.LocalDateTime;
 
 public interface PurchaseService {
     Page<PurchaseDTO> findAllByFilters(LocalDateTime startDate, LocalDateTime endDate, Long supplierId, Long storeId, Pageable pageable);
+    PurchaseDTO findById(Long id);
     PurchaseDTO create(PurchaseCreateDTO purchaseCreateDTO);
 }

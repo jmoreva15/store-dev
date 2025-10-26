@@ -34,6 +34,13 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    public PurchaseDTO findById(Long id) {
+        return purchaseRepository.findById(id)
+                .map(purchaseMapper::toDTO)
+                .orElseThrow(() -> new NotFoundException("Purchase not found with ID: " + id));
+    }
+
+    @Override
     public PurchaseDTO create(PurchaseCreateDTO dto) {
         Purchase purchase = purchaseMapper.toEntity(dto);
 

@@ -50,6 +50,14 @@ public class PurchaseController {
         return "app/purchase/index";
     }
 
+    @GetMapping("/detail/{id}")
+    @PreAuthorize("hasAuthority('VIEW_PURCHASE')")
+    public String detail(@PathVariable Long id, Model model) {
+        PurchaseDTO purchase = purchaseService.findById(id);
+        model.addAttribute("purchase", purchase);
+        return "app/purchase/detail";
+    }
+
     @GetMapping("/create")
     @PreAuthorize("hasAuthority('CREATE_PURCHASE')")
     public String create(Model model) {
