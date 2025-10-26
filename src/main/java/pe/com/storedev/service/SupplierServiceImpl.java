@@ -13,6 +13,8 @@ import pe.com.storedev.exception.NotFoundException;
 import pe.com.storedev.mapper.SupplierMapper;
 import pe.com.storedev.repository.SupplierRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SupplierServiceImpl implements SupplierService {
@@ -24,6 +26,14 @@ public class SupplierServiceImpl implements SupplierService {
     public Page<SupplierDTO> findAll(Pageable pageable) {
         return supplierRepository.findAllNotDeleted(pageable)
                 .map(supplierMapper::toDTO);
+    }
+
+    @Override
+    public List<SupplierDTO> findAllActive() {
+        return supplierRepository.findAllActiveNotDeleted()
+                .stream()
+                .map(supplierMapper::toDTO)
+                .toList();
     }
 
     @Override

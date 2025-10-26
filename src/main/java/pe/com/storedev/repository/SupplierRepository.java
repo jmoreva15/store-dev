@@ -7,12 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pe.com.storedev.entity.Supplier;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier, Long> {
     @Query("SELECT s FROM Supplier s WHERE s.deleted = FALSE")
     Page<Supplier> findAllNotDeleted(Pageable pageable);
+
+    @Query("SELECT s FROM Supplier s WHERE s.deleted = FALSE AND s.active = TRUE")
+    List<Supplier> findAllActiveNotDeleted();
 
     @Query("SELECT s FROM Supplier s WHERE s.id = :id AND s.deleted = FALSE")
     Optional<Supplier> findByIdNotDeleted(Long id);

@@ -13,6 +13,7 @@ import pe.com.storedev.dto.store.StoreUpdateDTO;
 import pe.com.storedev.entity.Store;
 import pe.com.storedev.exception.NotFoundException;
 import pe.com.storedev.mapper.StoreMapper;
+import pe.com.storedev.mapper.StoreProductMapper;
 import pe.com.storedev.repository.StoreProductRepository;
 import pe.com.storedev.repository.StoreRepository;
 
@@ -22,9 +23,10 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class StoreServiceImpl implements StoreService {
+    private final StoreMapper storeMapper;
+    private final StoreProductMapper storeProductMapper;
     private final StoreRepository storeRepository;
     private final StoreProductRepository storeProductRepository;
-    private final StoreMapper storeMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -43,7 +45,7 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public List<StoreProductDTO> findAllProductAssignments() {
         return storeProductRepository.findAll().stream()
-                .map(storeMapper::toStoreProductDTO)
+                .map(storeProductMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -81,8 +83,8 @@ public class StoreServiceImpl implements StoreService {
         if (assignmentExists)
             throw new IllegalStateException("Product is already assigned to the store.");
 
-        return storeMapper.toStoreProductDTO(storeProductRepository
-                        .save(storeMapper.toAssignedProductEntity(dto)));
+        return storeProductMapper.toDTO(storeProductRepository
+                        .save(storeProductMapper.toAssignedProductEntity(dto)));
     }
 
     @Override

@@ -22,6 +22,14 @@ public class SupplierMapper {
         return supplier;
     }
 
+    public Supplier toEntity(Long id) {
+        if (id == null) return null;
+
+        Supplier supplier = new Supplier();
+        supplier.setId(id);
+        return supplier;
+    }
+
     public SupplierDTO toDTO(Supplier entity) {
         if (entity == null) return null;
 
